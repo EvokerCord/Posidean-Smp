@@ -1,0 +1,7 @@
+
+
+function sendActionbar(p: player):
+	set {_uuid} to {_p}'s uuid
+	if hasTrident({_p}'s held item) is true:
+		if getTrident({_p}'s held item) is "sky":
+			send action bar "<##E6A2A5>☁ Clouded Mind: &c%{-cloudMind::%{_uuid}%} <##E6A2A5>| <##E6A2A5>☁ Breeze Transmutation: &c%{-breezeTransmutation::%{_uuid}%}% <##E6A2A5>| <##E6A2A5>☁ Blinding Light: &c%{-blindingLight::%{_uuid}%}%" to {_p}

@@ -1,5 +1,0 @@
-
-every 1 seconds:
-	loop all players:
-		if loop-player's inventory contains {trident::sky}:
-			send action bar "<##E6A2A5>☁ Clouded Mind: &c%{cloudedminddisplay.%loop-player%}% <##E6A2A5>| <##E6A2A5>☁ Breeze Transmutation: &c%{breezetransdisplay.%loop-player%}% <##E6A2A5>| <##E6A2A5>☁ Blinding Light: &aYes" to loop-player
