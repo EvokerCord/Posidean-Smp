@@ -1,0 +1,72 @@
+on load:
+	set {trident::sky} to carrot on a stick named "<##E6A2A5>&lSky &7&lTrident" with lore "", "<##E6A2A5>☁ &lPassive", "&7If you are offhanding phantom membrane you will gain no fall damage", "&7and strength at night", "", "<##E6A2A5>☁ &lClouded Mind", "&7This ability allows you to place a cobweb at", "&7the target's head causing them to be slowed", "&7    | Prompt [Attack/Left Click]", "&7    | Cooldown [0.5m/ 30s]", "", "<##E6A2A5>☁ &lBreeze Transmutation", "&7This ability allows the user to change state and", "&7float/fly through the air as if they were a ghost", "&7while also being able to attach onto the target", "&7    | Prompt [Right click]", "&7    | Cooldown [4m/240s]", "", "<##E6A2A5>☁ &lBlinding Light", "&7This ability summons a bright light and blinds enemies", "&7making them miss 75%% of their hits", "&7    | Prompt [Right click]", "&7    | Cooldown [4m/240s]"
+
+command /sky:
+	trigger:
+		give player {trident::sky}
+
+every 1 seconds:
+	loop all players:
+		if loop-player's inventory contains {trident::sky}:
+			send action bar "<##E6A2A5>☁ Clouded Mind: &c%{cloudedminddisplay.%loop-player%}% <##E6A2A5>| <##E6A2A5>☁ Breeze Transmutation: &c%{breezetransdisplay.%loop-player%}% <##E6A2A5>| <##E6A2A5>☁ Blinding Light: &aYes" to loop-player
+
+on damage:
+	attacker is player
+	if {cloudedminddisplay.%attacker%} is "&a&l✔️":
+		if attacker's held item is {trident::sky}:
+			set {cloudedmindsec.%attacker%} to 30
+			set {_cobweb} to location 1 block above victim
+			set block at {_cobweb} to cobweb
+
+every 5 ticks:
+	loop all players:
+		if {cloudedmindsec.%loop-player%} > 0:
+			set {cloudedminddisplay.%loop-player%} to "%{cloudedmindsec.%loop-player%}%s"
+		else:
+			set {cloudedminddisplay.%loop-player%} to "&a&l✔️"  # Green checkmark
+
+every 1 second:
+	loop all players:
+		if {cloudedmindsec.%loop-player%} > 0:
+			remove 1 from {cloudedmindsec.%loop-player%}
+		else:
+			set {cloudedmindsec.%loop-player%} to 0
+
+every 1 second:
+	loop all players:
+		if {breezetranssec.%loop-player%} > 0:
+			remove 1 from {breezetranssec.%loop-player%}
+		else if {breezetransmin.%loop-player%} > 0:
+			remove 1 from {breezetransmin.%loop-player%}
+			set {breezetranssec.%loop-player%} to 59
+		else:
+			set {breezetranssec.%loop-player%} to 0
+			set {breezetransmin.%loop-player%} to 0
+
+# Update cooldown display every 5 ticks
+every 5 ticks:
+	loop all players:
+		if {breezetransmin.%loop-player%} >= 0:
+			if {breezetranssec.%loop-player%} > 0:
+				set {breezetransdisplay.%loop-player%} to "%{breezetransmin.%loop-player%}%m %{breezetranssec.%loop-player%}%s"
+			else:
+				set {breezetransdisplay.%loop-player%} to "&a&l✔️"
+
+on right click:
+	if player is sneaking:
+		if player's tool is {trident::sky}:
+			set {breezetransmin.%player%} to 2
+			if {breezetransdisplay.%player%} is "&a&l✔️":
+				set {_pl} to location of player
+				set {_tploc} to location 2 blocks above player
+				teleport player to {_tploc}
+				set the player's gamemode to spectator
+				dustparticlering({_pl}, 255, 255, 255, 0.2, 2)
+				play sound "entity.ender_dragon.ambient" with volume 1 and pitch 1.2 at player
+				set {breezetrans} to true
+				wait 10 seconds
+				set the player's gamemode to survival
+				play sound "entity.ender_dragon.hurt" with volume 1 and pitch 1.2 at player
+				set {breezetrans} to false
+				set {_pl} to location of player
+				dustparticlering({_pl}, 255, 255, 255, 0.2, 2)
