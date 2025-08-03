@@ -1,0 +1,11 @@
+
+function hasTrident(i: item) :: boolean:
+	if {_i}'s name contains "&7&lTrident":
+		return true
+	else:
+		return false
+
+function getTrident(i: item) :: string:
+	if {_i}'s name contains "<##E6A2A5>&lSky &7&lTrident":
+		return "sky"
+	else:
