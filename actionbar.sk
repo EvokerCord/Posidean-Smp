@@ -1,6 +1,6 @@
 
  
-function windAction(p: player):
+function windBar(p: player):
 	set {_uuid} to {_p}'s uuid
 	if hasTrident({_p}'s held item) is true:
 		if getTrident({_p}'s held item) is "sky":
