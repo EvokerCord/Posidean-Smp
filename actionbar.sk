@@ -1,7 +1,33 @@
 
-
-function sendActionbar(p: player):
+ 
+function windAction(p: player):
 	set {_uuid} to {_p}'s uuid
 	if hasTrident({_p}'s held item) is true:
 		if getTrident({_p}'s held item) is "sky":
-			send action bar "<##E6A2A5>☁ Clouded Mind: &c%{-cloudMind::%{_uuid}%} <##E6A2A5>| <##E6A2A5>☁ Breeze Transmutation: &c%{-breezeTransmutation::%{_uuid}%}% <##E6A2A5>| <##E6A2A5>☁ Blinding Light: &c%{-blindingLight::%{_uuid}%}%" to {_p}
+			# Cloud Minded Actionbar
+			set {_s1} to {-cloudMind::%{_uuid}%}
+			if {_s1} > 120:
+				set {_sm1} to "&c2m"
+				remove 1 from {_s1}
+				set {_s1a} to "&c%{_sm1}% &c%{_s1}%"
+			else if {_s1} > 60:
+				set {_sm1} to "&c1m"
+				remove 1 from {_s1}
+				set {_s1a} to "&c%{_sm1}% &c%{_s1}%"
+			else if {_s1} is 0:
+				set {_sm1} to 0
+				set {_s1a} to "&2✔"
+			# BReeze ACtion bar
+			set {_s2} to {-breezeTransmutation::%{_uuid}%}
+			if {_s2} > 120:
+				set {_sm2} to "&c2m"
+				remove 1 from {_s2}
+				set {_s2a} to "&c%{_sm2}% &c%{_s2}%"
+			else if {_s2} > 60:
+				set {_sm2} to "&c1m"
+				remove 1 from {_s2}
+				set {_s2a} to "&c%{_sm2}% &c%{_s2}%"
+			else if {_s2} is 0:
+				set {_sm2} to 0
+				set {_s2a} to "&2✔"
+			send action bar "<##E6A2A5>☁ Clouded Mind: &c%{_s1a}% <##E6A2A5>| <##E6A2A5>☁ Breeze Transmutation: &c%{_s2a}% <##E6A2A5>| <##E6A2A5>☁ Blinding Light: &c%{-blindingLight::%{_uuid}%}%" to {_p}

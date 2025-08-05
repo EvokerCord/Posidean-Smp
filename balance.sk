@@ -1,0 +1,18 @@
+# ban items n stuff
+
+on block place:
+	if event-block is cobweb:
+		cancel event
+		loop 128 times:
+			remove 1 cobweb from player's inventory
+
+
+on right click:
+	if any:
+		player's held item is wind charge
+		player's offhand item is wind charge
+	then:
+		cancel event
+		loop 128 times:
+			remove 1 wind charge from player's inventory
+
