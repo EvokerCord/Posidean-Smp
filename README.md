@@ -8,5 +8,6 @@
 - 1.21+
 
 ## Plugins Required
-- Skript 2.9.5
-- skbee 3.7.0
+- Skript latest
+- skbee Latest
+- Sk-reflect latest
