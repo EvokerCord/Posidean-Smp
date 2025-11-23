@@ -1,7 +1,7 @@
 # Posidean-Smp Skript
 
 ## Developer
-- Voiddev [Main Dev]
+- Voiddev 
 - BountyBear 
 
 ## Supported Versions
